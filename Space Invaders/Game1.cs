@@ -8,7 +8,7 @@ namespace Space_Invaders
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
-
+        
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
