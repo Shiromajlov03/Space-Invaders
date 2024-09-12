@@ -1,12 +1,27 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Space_Invaders
 {
-    internal class Enemy_Controller
+
+    
+    public class Enemy_Controller
     {
+        public Vector2 Pos;
+        public Texture2D tex;
+        public Vector2 velocity;
+        public int windowHeight;
+
+
     }
+
+    public void Update()
+    {
+
+    }
+
+    
 }
