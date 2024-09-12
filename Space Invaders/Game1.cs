@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Space_Invaders
 {
@@ -8,12 +10,17 @@ namespace Space_Invaders
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
+        public List<Enemy_Controller> enemyList;
+        public Vector2 pos;
+        public Vector2 move;
+        public int windowHeight;
         
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            
         }
 
         protected override void Initialize()
@@ -26,6 +33,18 @@ namespace Space_Invaders
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            pos = new Vector2(0, 0);
+
+            for (int i = 0; i < 10; i++)
+            {
+
+                for (int j = 0; j< 3; j++)
+                {
+
+                }
+
+            }
+
 
             // TODO: use this.Content to load your game content here
         }
