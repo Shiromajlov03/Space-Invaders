@@ -11,9 +11,13 @@ namespace Space_Invaders
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         public List<Enemy_Controller> enemyList;
-        public Vector2 pos;
+        public Vector2 enemyX;
+        public Vector2 enemyY;
         public Vector2 move;
         public int windowHeight;
+        public Texture2D enemyTex;
+        public Enemy_Controller enemy;
+        
         
         public Game1()
         {
@@ -33,14 +37,29 @@ namespace Space_Invaders
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            pos = new Vector2(0, 0);
 
+            // load in the enemy data
+            enemyTex = Content.Load<Texture2D>("enemy_PlaceHolder"); //insert enemy texture
+            enemyX = new Vector2(0, 0);
+            move = new Vector2(0, 5);
+            windowHeight = Window.ClientBounds.Height;
+            enemy = new Enemy_Controller(enemyTex, enemyX, move, windowHeight);
+            enemyList = new List<Enemy_Controller>();
+            windowHeight = Window.ClientBounds.Height;
+
+
+            // place out the enemy locations
             for (int i = 0; i < 10; i++)
             {
 
                 for (int j = 0; j< 3; j++)
                 {
-
+                    Vector2 enemyX = new Vector2(j * 50);
+                   
+                    move = new Vector2(0, 5);
+                    enemy = new Enemy_Controller (enemyTex , enemyX, move, windowHeight);
+                    enemyList.Add(enemy);
+                    
                 }
 
             }
@@ -62,6 +81,17 @@ namespace Space_Invaders
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+
+            foreach (Enemy_Controller enemy in enemyList)
+            {
+
+                enemy.Draw(spriteBatch);
+
+            }
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
