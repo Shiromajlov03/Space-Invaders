@@ -10,15 +10,16 @@ namespace Space_Invaders
     
     public class Enemy_Controller
     {
-        public Vector2 pos;
-        
-        public Texture2D tex;
-        public Vector2 movement;
+        public Vector2 posX {  get; private set; }
+        public Vector2 posY { get; private set; }
+        private Texture2D tex;
+        public Vector2 movement { get; private set; }   
         public int windowHeight;
-        public Enemy_Controller(Texture2D tex, Vector2 pos, Vector2 movement, int windowHeight)
+        public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight)
         {
             this.tex = tex;
-            this.pos = pos;
+            this.posX = posX;
+            this.posY = posY;
             this.movement = movement;
             this.windowHeight = windowHeight;
         }
@@ -26,18 +27,22 @@ namespace Space_Invaders
 
         public void Update()
         {
-            if (pos.Y < windowHeight-tex.Height || pos.Y > windowHeight - tex.Height)
+            if (posY.Y < 0 || posY.Y > windowHeight - tex.Height)
             {
-                movement = movement * 1;
+                movement = movement * 0;
+
 
             }
+            posY = posY + movement;
+
+            
 
 
         }
 
         public void Draw(SpriteBatch spriteBatch) {
 
-            spriteBatch.Draw(tex, pos, Color.White);
+            spriteBatch.Draw(tex, posX+ posY , Color.White);
         }
 
        
