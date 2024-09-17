@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.DirectWrite;
+using SharpDX.Win32;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 
 namespace Space_Invaders
@@ -15,13 +18,17 @@ namespace Space_Invaders
         private Texture2D tex;
         public Vector2 movement { get; private set; }   
         public int windowHeight;
-        public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight)
+        public bool loss = false;
+
+
+    public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight, bool loss)
         {
             this.tex = tex;
             this.posX = posX;
             this.posY = posY;
             this.movement = movement;
             this.windowHeight = windowHeight;
+            this.loss = loss;
         }
 
 
@@ -31,9 +38,12 @@ namespace Space_Invaders
             {
                 movement = movement * 0;
 
+                loss = true;
 
             }
             posY = posY + movement;
+
+            
 
             
 
@@ -43,6 +53,8 @@ namespace Space_Invaders
         public void Draw(SpriteBatch spriteBatch) {
 
             spriteBatch.Draw(tex, posX+ posY , Color.White);
+
+           
         }
 
        
