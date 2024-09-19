@@ -16,14 +16,15 @@ namespace Space_Invaders
 
 
         //initialise everything for the enemy
-        public List<Enemy_Controller> enemyList; //creates a enemy list from the Enemy_Controller class
-        public Vector2 enemyX; //enemy position
-        public Vector2 enemyY;
-        public Vector2 move; //enemy movement
-        public int windowHeight; //window height
-        public Texture2D enemyTex; //enemy texture
-        public Enemy_Controller enemy;
-        public bool enemyAlive;
+         List<Enemy_Controller> enemyList; //creates a enemy list from the Enemy_Controller class
+        Vector2 enemyX; //enemy position
+        Vector2 enemyY;
+        Vector2 move; //enemy movement
+        int windowHeight; //window height
+        Texture2D enemyTex; //enemy texture
+        Enemy_Controller enemy;
+         bool enemyAlive;
+        Vector2 enemypos;
         
 
 
@@ -93,8 +94,8 @@ namespace Space_Invaders
             windowWidth = Window.ClientBounds.Width;
             enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp);
             enemyList = new List<Enemy_Controller>();
-            
-            
+            Vector2 enemypos = new Vector2(enemyX.X, enemyY.Y );
+
             lossPos = new Vector2(0,0); //where to put the loss screen
             lossTex = Content.Load<Texture2D>("lossTex"); //how the loss screen looks
            
@@ -114,11 +115,7 @@ namespace Space_Invaders
                     
                     enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp);
                     enemyList.Add(enemy);
-                    if (posBulletP == enemyX + enemyY)
-                    {
-
-                        move = new Vector2 (0, 0);
-                    }
+                   
 
 
                 }
@@ -182,6 +179,7 @@ namespace Space_Invaders
 
 
             }
+           
             player.Update();
 
             bulletP.Update();
@@ -190,7 +188,7 @@ namespace Space_Invaders
             //if the bullet touches an enemy they are dead
             foreach (Enemy_Controller enemy in enemyList)
             {
-                if (posBulletP == enemyX + enemyY)
+                if (posBulletP == enemypos)
                 {
                     score += 100;
                     enemyAlive = false;
@@ -244,7 +242,7 @@ namespace Space_Invaders
             {
                 player.Draw(spriteBatch);
             }
-
+            bulletP.Draw(spriteBatch);
 
             spriteBatch.End();
 
