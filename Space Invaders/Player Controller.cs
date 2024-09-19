@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -59,7 +58,7 @@ namespace Space_Invaders
 
             if (leftP && posP.X > 1)
                 posP.X = posP.X - 5;
-
+            
            
 
         }

@@ -21,13 +21,14 @@ namespace Space_Invaders
         public int windowHeight { get; private set; }
         public bool alive = true;
         public int hp;
-        
+        public Projectile_Controller bullet;
+        public Vector2 finalPos;
         
         
        
 
 
-    public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight, bool alive, int hp)
+    public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight, bool alive, int hp, Projectile_Controller bullet)
         {
             this.tex = tex;
             this.posX = posX;
@@ -36,6 +37,7 @@ namespace Space_Invaders
             this.windowHeight = windowHeight;
             this.alive = alive;
             this.hp = hp;
+            this.bullet = bullet;
 
     }
         
@@ -59,8 +61,10 @@ namespace Space_Invaders
             
             
             posY = posY + movement;
-
+            finalPos = new Vector2(posX.X, posY.Y);
             
+            
+           
 
             
 

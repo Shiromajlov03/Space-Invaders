@@ -92,7 +92,7 @@ namespace Space_Invaders
             enemyY = new Vector2(0, 0);
             windowHeight = Window.ClientBounds.Height;
             windowWidth = Window.ClientBounds.Width;
-            enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp);
+            enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp, bulletP);
             enemyList = new List<Enemy_Controller>();
             Vector2 enemypos = new Vector2(enemyX.X, enemyY.Y );
 
@@ -111,9 +111,9 @@ namespace Space_Invaders
                 {
                     Vector2 enemyX = new Vector2 (j * 105,0);
                     Vector2 enemyY = new Vector2 (0, i * 100);
-                    Vector2 move = new Vector2 (0, 2);
+                    Vector2 move = new Vector2 (0, 1);
                     
-                    enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp);
+                    enemy = new Enemy_Controller(enemyTex, enemyX, enemyY, move, windowHeight, enemyAlive, hp, bulletP);
                     enemyList.Add(enemy);
                    
 
@@ -132,7 +132,7 @@ namespace Space_Invaders
                 posP.Y = Window.ClientBounds.Height - bodyTextureP.Height * 3;
                  
                 score = 0;
-                hp = 20;
+                hp = 15;
 
                 
 
