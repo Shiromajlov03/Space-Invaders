@@ -29,15 +29,20 @@ namespace Space_Invaders
         public bool shootP;
         public bool bulletAliveP = false;
         public bool collision = false;
+        
 
 
         public Texture2D bodyTexturePmalfunction;
         public Vector2 posP;
 
+        public Rectangle BoundingBox {  get; private set; }
+        private float shootCooldown = 1f;
+        private float shootTime = 0f;
+
 
         public Player_Controller player;
 
-        public Projectile_Controller(Texture2D bulletTextureP, Vector2 posBulletP, bool shootP, bool bulletAliveP, bool collision, Texture2D bodyTexturePmalfunction, Vector2 posP, Player_Controller player) // int bodyPmalfunctioned
+        public Projectile_Controller(Texture2D bulletTextureP, Vector2 posBulletP,Rectangle BoundingBox, bool shootP, bool bulletAliveP, bool collision, Texture2D bodyTexturePmalfunction, Vector2 posP, Player_Controller player) // int bodyPmalfunctioned
         {
             this.bulletTextureP = bulletTextureP;
             this.posBulletP = posBulletP;
@@ -47,16 +52,21 @@ namespace Space_Invaders
             this.bodyTexturePmalfunction = bodyTexturePmalfunction;
             this.posP = posP;
             this.player = player;
-        }
-        public void Update()
-        {
+            BoundingBox = new Rectangle((int)posBulletP.X, (int)posBulletP.Y, bulletTextureP.Width, bulletTextureP.Height);
+            this.BoundingBox = BoundingBox;
 
+        }
+        public void Update(GameTime gameTime)
+        {
+            shootTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             shootP = Keyboard.GetState().IsKeyDown(Keys.Space);
 
 
             if (bulletAliveP)
             {
                 posBulletP.Y = posBulletP.Y - 5;
+
+                BoundingBox = new Rectangle((int)posBulletP.X,(int)posBulletP.Y,bulletTextureP.Width,bulletTextureP.Height);
 
                 if (collision || posBulletP.Y < 0)
                 {
@@ -69,9 +79,11 @@ namespace Space_Invaders
             else if (shootP && !bulletAliveP)
             {
                 bulletAliveP = true;
+                shootTime = 0f;
 
                 posBulletP.X = player.posP.X + bodyTexturePmalfunction.Width / 2 - bulletTextureP.Width / 2;
                 posBulletP.Y = player.posP.Y;
+                BoundingBox = new Rectangle((int)posBulletP.X, (int)posBulletP.Y, bulletTextureP.Width, bulletTextureP.Height);
             }
 
 

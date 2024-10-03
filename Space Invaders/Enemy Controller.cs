@@ -14,76 +14,104 @@ namespace Space_Invaders
 
     public class Enemy_Controller
     {
-        public Vector2 posX { get; private set; }
+        public Vector2 posX;
         public Vector2 posY;
         public Texture2D tex;
         public Vector2 movement;
         public int windowHeight { get; private set; }
+        public int windowWidth { get; private set; }
         public bool alive = true;
+        public int scoreValue;
         public int hp;
-        public Projectile_Controller bullet;
         public Vector2 finalPos;
-        
-        
-       
+        public Rectangle BoundingBox { get; private set; }
+        public bool moveDown = false;
+        public bool moveLeft = true;
+        public bool moveRight = false;
 
 
-    public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Vector2 movement, int windowHeight, bool alive, int hp, Projectile_Controller bullet)
+
+        public Enemy_Controller(Texture2D tex, Vector2 posX, Vector2 posY, Rectangle BoundingBox, Vector2 movement, int windowHeight, int windowWidth, bool alive, int hp, int scoreValue)
         {
             this.tex = tex;
             this.posX = posX;
             this.posY = posY;
             this.movement = movement;
             this.windowHeight = windowHeight;
+            this.windowWidth = windowWidth;
             this.alive = alive;
             this.hp = hp;
-            this.bullet = bullet;
-
-    }
-        
-
-
-        public void Update()
-        {
-            //stop moving if too low down
-            if (posY.Y < 0 || posY.Y > windowHeight - tex.Height)
-            {
-                movement = movement * 0;
-                
-                
-                
-               
-               
-
-               
-
-            }
-            
-            
-            posY = posY + movement;
-            finalPos = new Vector2(posX.X, posY.Y);
-            
-            
+            this.scoreValue = scoreValue;
+            BoundingBox = new Rectangle((int)posX.X,(int)posY.Y,tex.Width,tex.Height);
+            this.BoundingBox = BoundingBox;
            
 
             
+        }
+        
 
 
+        public void Update(GameTime gameTime)
+        {
+            if (alive == true)
+            {
+                movement = new Vector2(1, 0);
+                
+                if (moveDown == true)
+                {
+
+                    movement = new Vector2(0, 80);
+                    posY = posY + movement;
+
+                    moveDown = false;
+
+                }
+
+                if (moveLeft == true)
+                {
+                    movement = new Vector2(-1, 0);
+                    posX = posX + movement;
+                    posY = posY + new Vector2(0, 0);
+                }
+
+                if (moveRight == true)
+                {
+                    movement = new Vector2(1, 0);
+                    posX = posX + movement;
+                    posY = posY + new Vector2(0, 0);
+                }
+
+
+
+
+                finalPos = new Vector2(posX.X, posY.Y);
+
+                
+                
+                BoundingBox = new Rectangle((int)posX.X, (int)posY.Y, tex.Width, tex.Height);
+
+
+
+
+
+
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch, Color color)
+        {
 
             //if the enemy is alive draw it
             if (alive == true)
             {
-                spriteBatch.Draw(tex, posX + posY, Color.White);
+                spriteBatch.Draw(tex, new Vector2(posX.X, posY.Y), color); ;
             }
 
         }
 
 
 
-        }
+    }
 
     
 
